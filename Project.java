@@ -11,30 +11,26 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class Main {
+public class Project {
 
-    static HashMap<String, Integer> capitalSymbolsMap;
-    static ArrayList<ArrayList<String>> grammarRules;
-    static HashMap<String, Integer> lowcaseSymbolsMap;
-    static Scanner sc;
-    static String input;
-    static BufferedReader reader;
-    static File file = null;
-    static String[] capitalSymbols;
-    static String[] lowCaseSymbols;
-    static String initialCapitalSymbol;
+    HashMap<String, Integer> capitalSymbolsMap;
+    ArrayList<ArrayList<String>> grammarRules;
+    HashMap<String, Integer> lowcaseSymbolsMap;
+    Scanner sc;
+    String input;
+    BufferedReader reader;
+    File file = null;
+    String[] capitalSymbols;
+    String[] lowCaseSymbols;
+    String initialCapitalSymbol;
 
-    public static void main(String[] args) {
+    public Project() {
 
         grammarRules = new ArrayList<ArrayList<String>>();
         capitalSymbolsMap = new HashMap<String, Integer>();
         lowcaseSymbolsMap = new HashMap<String, Integer>();
-        
-        /**
-         * The file is chosen here. Only .txt files are accepted.
-         * The program will not continue until a .txt file is accepted. 
-         */
-        readFile(file);
+
+        /*readFile(file);
 
         System.out.println();
 		System.out.println("To exit, press Q");
@@ -52,10 +48,10 @@ public class Main {
                     System.out.println("Unaccepted");
                 }
             } 
-        }while(!input.equals("Q"));
+        }while(!input.equals("Q"));*/
     }    
 
-    public static void readFile(File file){
+    public void readFile(){
 
         do {
             JFileChooser chooser = new JFileChooser();
@@ -106,7 +102,7 @@ public class Main {
 
     }
 
-    public static boolean topDown(String p){
+    public boolean topDown(String p){
         Queue<String> queue = new LinkedList<String>();
         String q, u, A, v, w, uwv;
         boolean done;
@@ -152,7 +148,7 @@ public class Main {
         
     }
 
-    public static String leftmostCapital(String expression){
+    public String leftmostCapital(String expression){
         char[] characters = expression.toCharArray();
         for (char c : characters) {
             if ( capitalSymbolsMap.containsKey(Character.toString(c)) ){
