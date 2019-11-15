@@ -2,6 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * <p>
+ * This class contains the graphical interface and the front-end components
+ * of the project. It contains a Project object that contains all the 
+ * back-end functionality. 
+ *
+ * @author Fernando Rios Chavez
+ * @see JButton
+ * @see JLabel
+ * @see JTextField
+ * @see ImageIcon
+ * @see JFrame
+ * @see Project
+ */
 public class GUI {
 
     public JButton chooseFileButton, processStringButton;
@@ -9,14 +23,15 @@ public class GUI {
     public JTextField stringTextField;
     public ImageIcon backgroundImage, acceptedStitchImage, rejectedStitchImage;
     private JFrame frame;
+
+    /**
+     * The project object that contains all functionality. 
+     */
     private Project project;
-    public Font font;
-    
+
     public GUI(){
 
         project = new Project();
-        font = new Font("serif", Font.PLAIN, 14);
-        
         backgroundImage = new ImageIcon(new ImageIcon("images/Fondo.jpg").getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
         acceptedStitchImage = new ImageIcon(new ImageIcon("images/acceptedstitch.png").getImage().getScaledInstance(180, 180, Image.SCALE_DEFAULT));
         rejectedStitchImage = new ImageIcon(new ImageIcon("images/rejectedstitch.png").getImage().getScaledInstance(180, 180, Image.SCALE_DEFAULT));
@@ -29,15 +44,15 @@ public class GUI {
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                     ex.printStackTrace();
                 }
-
+                
+                /**
+                  * The panel contains all the graphical components. 
+                  */
                 Panel panel = new Panel();
                 frame = new JFrame("Fernando Rios Chávez A01020706");
                 
-                
-
                 frame.setResizable(false);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
                 frame.add(panel);
                 frame.pack();
                 frame.setLocationRelativeTo(null);
@@ -47,8 +62,12 @@ public class GUI {
         });
     }
 
-    
-
+    /**
+     * <p> When performed, will run the project's readFile method, and
+     * display the file path in a label in the GUI
+     * @see Project
+     * @see #readFile
+     */
     public class FileListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
             project.readFile();
@@ -56,6 +75,14 @@ public class GUI {
         }
     }
 
+    /**
+     * <p> If there is a file selected, will perform the top-down function
+     * on the string in the text field area. Otherwise, it will run the project's
+     * readFile method. 
+     * @see Project
+     * @see #topDown
+     * @see #readFile
+     */
     public class AcceptListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
             if(project.file != null){
@@ -77,10 +104,18 @@ public class GUI {
         } 
     }
 
+    /**
+     * <p> This class contains all the graphical components and will initailize
+     * them with its constructor. The positions and listener will be implemented 
+     * in this constructor.  
+     * @see FileListener
+     * @see AcceptListener
+     * @see JLayeredPane
+     */
     public class Panel extends JLayeredPane {
 
         /**
-         *
+         * 
          */
         private static final long serialVersionUID = 1L;
 

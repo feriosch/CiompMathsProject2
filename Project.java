@@ -7,15 +7,57 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * <p>
+ * This class contains every method to perform a string validation thorugh a
+ * top-down analysis with an specific free-context grammar.
+ * <p>
+ * It recieves the grammar rules through a file text, indicating the terminal and
+ * non-terminal symbols, as well as the rule derivations.
+ * <p>
+ * It uses iterative algorithms in roder to derivate the initial non-terminal
+ * symbol unitl the string is reached or until it is no longer possible to 
+ * obtain it.
+ *
+ * @author Fernando Rios Chavez
+ * @see BufferedReader
+ * @see FileReader
+ * @see HashMap
+ * @see ArrayList
+ * @see Scanner
+ * @see LinkedList
+ */
 public class Project {
 
+    /**
+	 * <p>A hashmap that turns non-termianl symbols into integers, with the 
+     * purpose of simplifying data manipulation. 
+	 * E.g. {S => 0, A => 1, B => 2, ...}
+	 */	
     HashMap<String, Integer> capitalSymbolsMap;
+
+    /**
+	 * <p>A bidimensional ArrayList of Strings that represent the grammar rules. 
+	 * It is an ArrayList of size = number of nom-terminal symbols, where every 
+     * cell contains an ArrayList of Strings made of the following derivations 
+     * using that non-terminal symbols.  
+	 * E.g. grammarRules.get(0).get(1) = AaaS (first rule using symbol 0 (S)).
+	 */
     ArrayList<ArrayList<String>> grammarRules;
+
+    /**
+	 * <p>A hashmap that turns terminal symbols into integers, with the 
+     * purpose of simplifying data manipulation. 
+	 * E.g. {a => 0, b => 1, c => 2, ...}
+	 */	
     HashMap<String, Integer> lowcaseSymbolsMap;
+
+    /**
+	 * The scanner will be used for the string inputs. 
+	 */
     Scanner sc;
     String input;
     BufferedReader reader;
@@ -24,33 +66,24 @@ public class Project {
     String[] lowCaseSymbols;
     String initialCapitalSymbol;
 
+    /**
+	 *<p> Project Constructor
+	 */
     public Project() {
-
         grammarRules = new ArrayList<ArrayList<String>>();
         capitalSymbolsMap = new HashMap<String, Integer>();
         lowcaseSymbolsMap = new HashMap<String, Integer>();
-
-        /*readFile(file);
-
-        System.out.println();
-		System.out.println("To exit, press Q");
-        sc = new Scanner(System.in);
-        
-        do{
-            System.out.print("Insert string: ");
-            input = sc.nextLine();
-
-            if(!input.equals("Q")){
-                if(topDown(input)){
-                    System.out.println("Accepted.");
-                }
-                else{
-                    System.out.println("Unaccepted");
-                }
-            } 
-        }while(!input.equals("Q"));*/
     }    
 
+    /**
+     * <p> This function opens and reads a file obtaining grammar data and 
+     * storing it in the correspondent data structures. 
+	 * It opens a search dialog window to select .txt files exclusively.  
+	 * Once selected, it reads line by line with a BufferedReader retrieving data
+     * with the specified format.  
+	 * @see JFileChooser
+	 * @see BufferedReacher
+	 */
     public void readFile(){
 
         do {
@@ -102,6 +135,23 @@ public class Project {
 
     }
 
+    /**
+	 *<p> Performs the top-down algorithm seen in class.  
+	 * The initial non-terminal symbol is added to the queue, and added as a new node. 
+     * Then, the string is splited in three where it finds its first non-terminal symbol.
+     * 'u' is the left-most part. 'A' is the non-terminal symbol. 'v' is the rest.  
+     * Derivation rules of that non-terminal symbol are applied in order, transforming
+     * 'A' into a new substring 'w'.  'u', 'w' and 'v' are concatenated into 'uwv'.
+     * If 'uwv' is not the final string and it does contain non-terminal symbols and
+     * its length is equal or shorter than the final string, 'uwv' is added to the
+     * queue and the process is repeated. 
+     * Otherwise, 'uwv' is no longer analized.
+     * If the queue becomes empty before finding the string, the string is rejected. 
+     * Otherwise it is accpted. 
+	 * @param p a String in order to be analyzed.
+     * @return accepted a boolean indicating if the input string is accpted or not. 
+	 * @see #leftmostCapital
+	 */
     public boolean topDown(String p){
         Queue<String> queue = new LinkedList<String>();
         String q, u, A, v, w, uwv;
@@ -148,6 +198,11 @@ public class Project {
         
     }
 
+    /**
+     *<p> A function that checks if a string contains a non-terminal symbol. 
+	 * @param expression a String in order to be analyzed.
+     * @return the leftmost non-terminal symbol found. If not found, will return "none". 
+	 */
     public String leftmostCapital(String expression){
         char[] characters = expression.toCharArray();
         for (char c : characters) {
