@@ -82,7 +82,7 @@ public class Project {
 	 * Once selected, it reads line by line with a BufferedReader retrieving data
      * with the specified format.  
 	 * @see JFileChooser
-	 * @see BufferedReacher
+	 * @see BufferedReader
 	 */
     public void readFile(){
 

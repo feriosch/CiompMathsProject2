@@ -66,7 +66,6 @@ public class GUI {
      * <p> When performed, will run the project's readFile method, and
      * display the file path in a label in the GUI
      * @see Project
-     * @see #readFile
      */
     public class FileListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
@@ -80,8 +79,6 @@ public class GUI {
      * on the string in the text field area. Otherwise, it will run the project's
      * readFile method. 
      * @see Project
-     * @see #topDown
-     * @see #readFile
      */
     public class AcceptListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
