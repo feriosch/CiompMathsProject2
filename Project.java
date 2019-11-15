@@ -112,10 +112,12 @@ public class Project {
             }
             
             currentLine = reader.readLine();
-			lowCaseSymbols = currentLine.split(",");
-            for (int i = 0; i < lowCaseSymbols.length; i++) {
+            lowCaseSymbols = currentLine.split(",");
+            int i = 0;
+            for (; i < lowCaseSymbols.length; i++) {
 				lowcaseSymbolsMap.put(lowCaseSymbols[i], i);
             }
+            lowcaseSymbolsMap.put("lmd",i+1);
 
             currentLine = reader.readLine();
             initialCapitalSymbol = currentLine;
@@ -125,8 +127,12 @@ public class Project {
 				String currentCapitalSymbol = currentLine.split("->")[0];
                 String currentRule = currentLine.split("->")[1];
 
-                grammarRules.get(capitalSymbolsMap.get(currentCapitalSymbol)).add(currentRule);
-
+                if(currentRule.equals("lmd")){
+                    grammarRules.get(capitalSymbolsMap.get(currentCapitalSymbol)).add("");
+                } else {
+                    grammarRules.get(capitalSymbolsMap.get(currentCapitalSymbol)).add(currentRule);
+                }
+                
 				currentLine = reader.readLine();
 			}            
             reader.close();  
@@ -187,7 +193,7 @@ public class Project {
                     w = grammarRules.get(capitalSymbolsMap.get(A)).get(i);
                     uwv = u + w + v;
                     if (!(leftmostCapital(uwv).equals("none")) && p.startsWith(u) 
-                    && (uwv.length() <= p.length()) ){
+                    && (uwv.length() <= p.length() + 5) ){
                         queue.add(uwv);
                         current_parent.addChild(new Node(uwv));
                     }
