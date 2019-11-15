@@ -113,12 +113,10 @@ public class Project {
             
             currentLine = reader.readLine();
             lowCaseSymbols = currentLine.split(",");
-            int i = 0;
-            for (; i < lowCaseSymbols.length; i++) {
+            for (int i = 0; i < lowCaseSymbols.length; i++) {
 				lowcaseSymbolsMap.put(lowCaseSymbols[i], i);
             }
-            lowcaseSymbolsMap.put("lmd",i+1);
-
+            
             currentLine = reader.readLine();
             initialCapitalSymbol = currentLine;
             
