@@ -29,6 +29,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @see ArrayList
  * @see Scanner
  * @see LinkedList
+ * @see Node
  */
 public class Project {
 
@@ -151,6 +152,7 @@ public class Project {
 	 * @param p a String in order to be analyzed.
      * @return accepted a boolean indicating if the input string is accpted or not. 
 	 * @see #leftmostCapital
+     * @see Node
 	 */
     public boolean topDown(String p){
         Queue<String> queue = new LinkedList<String>();
@@ -163,6 +165,11 @@ public class Project {
 
         do{
             q = queue.remove();
+
+            /**
+             * Add a node of the element remove from the queue, using
+             * the Tree structure from www.javagists.com
+             */
             Node current_parent = new Node(q);
             
             i = 0;
